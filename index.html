@@ -8,37 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a0a;
-      --fg: #f0ede6;
-      --muted: #5a5a5a;
-      --accent: #c8f04c;
-      --accent2: #4cf0c0;
-      --card-bg: #111111;
-      --border: rgba(255,255,255,0.08);
+      --bg: #0a0a0a; --fg: #f0ede6; --muted: #5a5a5a;
+      --accent: #c8f04c; --accent2: #4cf0c0;
+      --card-bg: #111111; --border: rgba(255,255,255,0.08);
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Syne', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* noise overlay */
+    body { background: var(--bg); color: var(--fg); font-family: 'Syne', sans-serif; overflow-x: hidden; }
     body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       opacity: 0.35;
     }
-
     .wrap { position: relative; z-index: 1; max-width: 740px; margin: 0 auto; padding: 0 28px; }
-
-    /* NAV */
     nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 20px 28px; position: sticky; top: 0; z-index: 100;
@@ -51,91 +33,38 @@
     .nav-links a:hover { color: var(--fg); }
     .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 2s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-    /* HERO */
     .hero { padding: 90px 28px 70px; position: relative; overflow: hidden; }
-    .hero-tag {
-      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
-      letter-spacing: .12em; text-transform: uppercase; margin-bottom: 28px;
-      display: flex; align-items: center; gap: 10px;
-    }
+    .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; gap: 10px; }
     .hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
-    .hero-name {
-      font-size: clamp(52px, 10vw, 80px); font-weight: 800; line-height: .92;
-      letter-spacing: -.03em; margin-bottom: 32px;
-      background: linear-gradient(135deg, #f0ede6 0%, #666 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .hero-name { font-size: clamp(52px, 10vw, 80px); font-weight: 800; line-height: .92; letter-spacing: -.03em; margin-bottom: 32px; background: linear-gradient(135deg, #f0ede6 0%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-name span { -webkit-text-fill-color: var(--accent); background: none; }
     .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 420px; margin-bottom: 40px; }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-primary {
-      padding: 13px 30px; background: var(--accent); color: #0a0a0a;
-      border: none; border-radius: 2px; font-family: 'Syne', sans-serif;
-      font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: .05em;
-      text-transform: uppercase; transition: transform .15s, box-shadow .15s;
-    }
+    .btn-primary { padding: 13px 30px; background: var(--accent); color: #0a0a0a; border: none; border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: .05em; text-transform: uppercase; transition: transform .15s, box-shadow .15s; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,240,76,.28); }
-    .btn-ghost {
-      padding: 13px 30px; background: transparent; color: var(--fg);
-      border: 1px solid var(--border); border-radius: 2px;
-      font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600;
-      cursor: pointer; letter-spacing: .05em; text-transform: uppercase;
-      transition: border-color .2s;
-    }
+    .btn-ghost { padding: 13px 30px; background: transparent; color: var(--fg); border: 1px solid var(--border); border-radius: 2px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: .05em; text-transform: uppercase; transition: border-color .2s; }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.4); }
-
-    /* floating orb */
-    .orb {
-      position: absolute; right: -80px; top: 10px;
-      width: 380px; height: 380px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(200,240,76,.13) 0%, transparent 70%);
-      pointer-events: none;
-      animation: float 7s ease-in-out infinite;
-    }
+    .orb { position: absolute; right: -80px; top: 10px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(200,240,76,.13) 0%, transparent 70%); pointer-events: none; animation: float 7s ease-in-out infinite; }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-22px)} }
-
-    /* DIVIDER */
     .divider { border: none; border-top: 1px solid var(--border); }
-
-    /* SECTION */
     .section { padding: 60px 28px; }
     .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
     .section-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); }
     .section-title { font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
     .section-line { flex: 1; height: 1px; background: var(--border); }
-
-    /* STATS */
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .stat-box {
-      background: var(--card-bg); border: 1px solid var(--border);
-      padding: 24px 20px; text-align: center;
-    }
+    .stat-box { background: var(--card-bg); border: 1px solid var(--border); padding: 24px 20px; text-align: center; }
     .stat-box:first-child { border-radius: 8px 2px 2px 2px; }
     .stat-box:last-child { border-radius: 2px 2px 2px 8px; }
     .stat-num { font-size: 32px; font-weight: 800; color: var(--accent); display: block; }
     .stat-label { font-size: 11px; color: var(--muted); margin-top: 5px; font-family: 'DM Mono', monospace; letter-spacing: .05em; }
-
-    /* ABOUT */
     .about-text { font-size: 15px; color: #aaa; line-height: 1.9; margin-bottom: 32px; }
     .about-text em { color: var(--fg); font-style: normal; font-weight: 600; }
     .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-    .skill {
-      font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 14px;
-      border: 1px solid var(--border); border-radius: 2px; color: var(--muted);
-      letter-spacing: .06em; transition: border-color .2s, color .2s; cursor: default;
-    }
+    .skill { font-family: 'DM Mono', monospace; font-size: 11px; padding: 7px 14px; border: 1px solid var(--border); border-radius: 2px; color: var(--muted); letter-spacing: .06em; transition: border-color .2s, color .2s; cursor: default; }
     .skill:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* PROJECTS */
     .projects { display: flex; flex-direction: column; gap: 2px; }
-    .project-item {
-      background: var(--card-bg); border: 1px solid var(--border);
-      padding: 28px 32px; cursor: pointer;
-      transition: border-color .2s, background .2s;
-      display: flex; justify-content: space-between; align-items: center; gap: 20px;
-    }
+    .project-item { background: var(--card-bg); border: 1px solid var(--border); padding: 28px 32px; cursor: pointer; transition: border-color .2s, background .2s; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
     .project-item:first-child { border-radius: 8px 8px 2px 2px; }
     .project-item:last-child { border-radius: 2px 2px 8px 8px; }
     .project-item:hover { border-color: rgba(200,240,76,.3); background: #161616; }
@@ -144,53 +73,30 @@
     .project-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
     .project-tags-row { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
     .tag { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 9px; background: rgba(200,240,76,.08); color: var(--accent); border-radius: 2px; }
+    .project-link { font-size: 12px; color: var(--accent); text-decoration: none; margin-top: 10px; display: inline-block; letter-spacing: .04em; }
+    .project-link:hover { text-decoration: underline; }
     .project-arrow { font-size: 22px; color: var(--muted); transition: transform .2s, color .2s; flex-shrink: 0; }
     .project-item:hover .project-arrow { transform: translate(4px, -4px); color: var(--accent); }
     .project-soon { opacity: .3; }
-
-    /* CONTACT */
     .contact-intro { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; max-width: 440px; }
     .contact-grid { display: grid; gap: 10px; max-width: 520px; }
-    .contact-input {
-      width: 100%; padding: 14px 16px;
-      background: var(--card-bg); border: 1px solid var(--border);
-      color: var(--fg); font-family: 'Syne', sans-serif; font-size: 14px;
-      border-radius: 4px; outline: none; transition: border-color .2s;
-    }
+    .contact-input { width: 100%; padding: 14px 16px; background: var(--card-bg); border: 1px solid var(--border); color: var(--fg); font-family: 'Syne', sans-serif; font-size: 14px; border-radius: 4px; outline: none; transition: border-color .2s; }
     .contact-input::placeholder { color: var(--muted); }
     .contact-input:focus { border-color: rgba(200,240,76,.5); }
     textarea.contact-input { height: 120px; resize: none; }
     .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .send-btn {
-      width: 100%; padding: 15px; background: var(--accent); color: #0a0a0a;
-      border: none; border-radius: 4px; font-family: 'Syne', sans-serif;
-      font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: .06em;
-      text-transform: uppercase; transition: opacity .15s, transform .15s;
-    }
+    .send-btn { width: 100%; padding: 15px; background: var(--accent); color: #0a0a0a; border: none; border-radius: 4px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: .06em; text-transform: uppercase; transition: opacity .15s, transform .15s; }
     .send-btn:hover { opacity: .88; transform: translateY(-2px); }
-    .success-msg {
-      display: none; text-align: center; padding: 14px;
-      font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent2);
-      border: 1px solid rgba(76,240,192,.2); border-radius: 4px;
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 30px 28px; border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-    }
+    .success-msg { display: none; text-align: center; padding: 14px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent2); border: 1px solid rgba(76,240,192,.2); border-radius: 4px; }
+    footer { padding: 30px 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .footer-left { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
     .footer-right { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
     .footer-right span { color: var(--accent); }
-
-    /* FADE IN ANIMATIONS */
     .fade-in { opacity: 0; transform: translateY(24px); animation: fadeIn .7s ease forwards; }
     .fade-in:nth-child(2) { animation-delay: .15s; }
     .fade-in:nth-child(3) { animation-delay: .3s; }
     .fade-in:nth-child(4) { animation-delay: .45s; }
     @keyframes fadeIn { to { opacity: 1; transform: none; } }
-
-    /* RESPONSIVE */
     @media (max-width: 520px) {
       .contact-row { grid-template-columns: 1fr; }
       .stats-row { grid-template-columns: 1fr; }
@@ -201,7 +107,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">@aditya</div>
   <div class="nav-links">
@@ -212,7 +117,6 @@
   <div class="nav-dot"></div>
 </nav>
 
-<!-- HERO -->
 <div class="wrap">
   <div class="hero">
     <div class="orb"></div>
@@ -228,12 +132,11 @@
 
 <hr class="divider">
 
-<!-- STATS -->
 <div class="wrap">
   <div class="section" style="padding-bottom: 28px;">
     <div class="stats-row">
       <div class="stat-box"><span class="stat-num">4+</span><div class="stat-label">months learning</div></div>
-      <div class="stat-box"><span class="stat-num">3</span><div class="stat-label">projects built</div></div>
+      <div class="stat-box"><span class="stat-num">2</span><div class="stat-label">projects live</div></div>
       <div class="stat-box"><span class="stat-num">100%</span><div class="stat-label">remote ready</div></div>
     </div>
   </div>
@@ -241,7 +144,6 @@
 
 <hr class="divider">
 
-<!-- ABOUT -->
 <div class="wrap">
   <div class="section" id="about">
     <div class="section-header">
@@ -266,7 +168,6 @@
 
 <hr class="divider">
 
-<!-- PROJECTS -->
 <div class="wrap">
   <div class="section" id="projects">
     <div class="section-header">
@@ -275,49 +176,50 @@
       <div class="section-line"></div>
     </div>
     <div class="projects">
-      <div class="project-card">
-    <div class="project-icon" style="background:var(--color-background-info);">🥊</div>
-    <div class="project-name">Combat Basics MMA</div>
-    <div class="project-desc">Full website for a real MMA gym in Pune. Includes pricing, schedule, class videos and contact form.</div>
-    <div class="project-tags">
-      <span class="project-tag">HTML</span>
-      <span class="project-tag">CSS</span>
-      <span class="project-tag">JS</span>
-    </div>
-    <a href="https://cb-site-bq5j8q5s8-disturbio04s-projects.vercel.app/" target="_blank" style="font-size:12px; color:var(--color-text-info); margin-top:8px; display:inline-block;">View Live →</a>
-  </div>
+
+      <div class="project-item" onclick="window.open('https://cb-site-bq5j8q5s8-disturbio04s-projects.vercel.app/','_blank')">
+        <div>
+          <div class="project-num">Project 001</div>
+          <div class="project-name">Combat Basics MMA</div>
+          <div class="project-desc">Full website for a real MMA gym in Pune. Includes pricing, schedule, class videos and contact form.</div>
+          <div class="project-tags-row">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+          </div>
+          <a class="project-link" href="https://cb-site-bq5j8q5s8-disturbio04s-projects.vercel.app/" target="_blank" onclick="event.stopPropagation()">View Live →</a>
         </div>
         <div class="project-arrow">↗</div>
       </div>
-      <div class="project-item project-soon">
+
+      <div class="project-item">
         <div>
           <div class="project-num">Project 002</div>
-          <div class="project-name">Business Landing Page</div>
-          <div class="project-desc">Responsive landing page for a local business — in progress.</div>
+          <div class="project-name">Counter App</div>
+          <div class="project-desc">Interactive counter with localStorage history tracking. Built with vanilla JS DOM manipulation.</div>
           <div class="project-tags-row">
-            <span class="tag">HTML</span><span class="tag">CSS</span>
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
           </div>
         </div>
         <div class="project-arrow">↗</div>
       </div>
+
       <div class="project-item project-soon">
         <div>
           <div class="project-num">Project 003</div>
           <div class="project-name">To-Do List App</div>
-          <div class="project-desc">Full JS CRUD app with localStorage — planned.</div>
+          <div class="project-desc">Full JS CRUD app with localStorage — coming soon.</div>
           <div class="project-tags-row">
             <span class="tag">JavaScript</span>
           </div>
         </div>
         <div class="project-arrow">↗</div>
       </div>
+
     </div>
   </div>
 </div>
 
 <hr class="divider">
 
-<!-- CONTACT -->
 <div class="wrap">
   <div class="section" id="contact">
     <div class="section-header">
@@ -333,14 +235,12 @@
       </div>
       <input class="contact-input" type="text" placeholder="What do you need? (e.g. landing page, portfolio site)">
       <textarea class="contact-input" placeholder="Tell me more about your project..."></textarea>
-      <!-- Replace the action URL below with your Formspree form URL -->
       <button class="send-btn" onclick="handleSubmit()">Send Message →</button>
       <div class="success-msg" id="success">✓ &nbsp;Message received — I'll reply within 24 hours.</div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-left">© 2026 Abhyuday Aditya · Pune, India</div>
   <div class="footer-right">Built with <span>HTML · CSS · JS</span></div>
